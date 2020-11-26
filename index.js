@@ -7,6 +7,7 @@ TASK 1 🚀
 // The customer would like to see the topping options, console log out each of the toppings one by one in the array above 
 */
 
+const list = arr => arr.forEach(item => console.log(item));
 
 /*
 TASK 2 🚀
@@ -15,14 +16,25 @@ for example you no longer have any onions and need to remove it from the list of
 Use .forEach() - hint - you will need to include the index in the callback
  */
 
-
+const remove = (arr, toRemove) => {
+    arr.forEach((item, index) => {
+        if (item === toRemove) {
+            arr.splice(index, 1);
+        }
+    })
+    return arr;
+}
 
 /*
 TASK 3 🚀
 // Sort the topping alphabetically and return them in a new array 
 */
 
+const sortArray = arr => {
+    return arr.sort()
+}
 
+const alphabeticalToppings = sortArray(toppings);
 
 
 const vacations = [
@@ -43,32 +55,79 @@ TASK 4 🚀
 // The travel agent would like to send a couple on their honeymoon to a location with a beach and a temperature above 90 degrees. return their options in a new array 
 */
 
-
+const honeymoonFilter = arr => {
+    const honeymoonPlaces = arr.filter(item => item.beach === true && item.temperature > 90);
+    return honeymoonPlaces;
+};
 
 /*
 TASK 5 🚀
 // A developer decides to become a digital nomad for a year, they would like to live in a place with strong wifi, a beach, and good hiking, return their options
 */
-
-
+const nomadFilter = arr => {
+    const places = arr.filter(item => item.beach === true && item.hiking === true && item.wifi === 'strong');
+    return places;
+}
 
 /* 
 TASK 6 🚀
 // write a function that allows a user to sort their vacations by hiking opportunities, beach access or a mix of both and return their options
 */
 
-
+const filter = (arr, input) => {
+    if (input === 'hiking') {
+        return arr.filter(item => item.hiking === true);
+    } else if (input === 'beach') {
+        return arr.filter(item => item.beach === true);
+    } else {
+        return arr.filter(item => item.hiking === true && item.beach === true);
+    }
+}
 
 /* 
 TASK 7 🚀
 // write a function that finds the average of overall ratings in a given array. The function should take an array as its argument and should return the average of the overall ratings in that array 
 hint - use .reduce()
 */
-
-
+const averageRating = arr => {
+    totalRatings = arr.reduce((accumulator, item) => accumulator + item.overall_rating,0);
+    return totalRatings/arr.length;
+}
 /*
 TASK 8 🚀
 Find the airport codes for each of the cities in the vacation array and write a function to add them to the objects in the array
 hint - your function should include array, index and code as parameters
 you will need to invoke the function each time you wish to add a new code
 */
+
+const addCode = (arr, index, code) => {
+    arr[index]['code'] = code;
+    return arr;
+}
+
+// bonus function to go through and add all the functions from a separate object
+
+const airportCodes = {
+    'Toronto': 'YYZ',
+    'Miami': 'MIA',
+    'Tel Aviv': 'TLV',
+    'Istanbul': 'IST',
+    'Bangkok': 'BKK',
+    'Lima': 'LIM',
+    'Muscat': 'MCT',
+    'Sydney': 'SYD',
+    'Cape Town': 'CPT',
+    'Cancun': 'CUN',
+};
+
+const addAllCodes = (arr, codes) => {
+    arr.map((item, index) => {
+        const code = codes[item.city];
+        addCode(arr, index, code);
+    }
+
+    );
+    return arr;
+}
+
+
